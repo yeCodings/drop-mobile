@@ -1,10 +1,10 @@
-import { useRef } from "react";
+import { useRef } from 'react';
 
 /**
  * 获取最新的 value
  * @template T
  * @param {T} value
- * @return {*} 
+ * @return {*}
  */
 const useLatest = <T>(value: T) => {
   const ref = useRef(value);

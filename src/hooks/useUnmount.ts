@@ -1,6 +1,5 @@
-import { useEffect } from "react";
-import useLatest from "./useLatest";
-
+import { useEffect } from 'react';
+import useLatest from './useLatest';
 
 /**
  * 组件卸载时运行
@@ -12,7 +11,7 @@ const useUnmount = (fn: () => void) => {
   // }, []);
   // 以上代码等同于下面👇🏻
   const fnRef = useLatest(fn);
-  useEffect(() => () => fnRef.current(),[fnRef])
+  useEffect(() => () => fnRef.current(), [fnRef]);
 };
 
 export default useUnmount;
