@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "mock": "node ./mock/index.js --watch",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
@@ -16,6 +17,10 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@apollo/server": "^4.9.1",
+    "@faker-js/faker": "^8.0.2",
+    "@graphql-tools/mock": "^9.0.0",
+    "@graphql-tools/schema": "^10.0.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
