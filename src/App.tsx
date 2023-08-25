@@ -3,21 +3,17 @@ import { useEffect } from 'react';
 
 import {
   Button,
-  Calendar,
-  Card,
   Form,
+  ImageUploader,
   Input,
 } from 'antd-mobile';
-import { useMutation, useQuery } from '@apollo/client';
-import { FIND, UPDATE } from './graphql/demo';
+import { useMutation } from '@apollo/client';
+import { UPDATE } from './graphql/demo';
+import { useUploadOSS } from './hooks/useUploadOSS';
 import './App.css';
 
 const App = () => {
-  const { loading, data } = useQuery(FIND, {
-    variables: {
-      id: 'b74bd0cc-2269-424d-a0d8-d64c173f8fcc',
-    },
-  });
+  const uploadHandler = useUploadOSS();
 
   useEffect(() => {
     // 深色模式
@@ -29,12 +25,13 @@ const App = () => {
 
   const [update] = useMutation(UPDATE);
 
-  const onClickHandler = (v: unknown) => {
-    update({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onClickHandler = async (v: any) => {
+    await update({
       variables: {
         id: 'b74bd0cc-2269-424d-a0d8-d64c173f8fcc',
         params: {
-          ...(v as object),
+          ...v,
         },
       },
     });
@@ -42,23 +39,6 @@ const App = () => {
 
   return (
     <div>
-      <Calendar
-        selectionMode="single"
-        onChange={(val) => {
-          // eslint-disable-next-line no-console
-          console.log(val);
-        }}
-      />
-      <Card>
-        <p>
-          data:
-          {JSON.stringify(data)}
-          loading:
-          {' '}
-          {loading}
-        </p>
-      </Card>
-
       <Form
         name="form"
         onFinish={onClickHandler}
@@ -69,7 +49,6 @@ const App = () => {
           </Button>
         )}
       >
-
         <Form.Item
           name="name"
           label="姓名"
@@ -82,6 +61,15 @@ const App = () => {
           label="简介"
         >
           <Input />
+        </Form.Item>
+        <Form.Item
+          name="avatar"
+          label="头像"
+        >
+          <ImageUploader
+            maxCount={1}
+            upload={uploadHandler}
+          />
         </Form.Item>
 
       </Form>
